@@ -4,10 +4,9 @@ import com.example.testeaula2.controller.dto.ProdutoDto;
 import com.example.testeaula2.model.Produto;
 import com.example.testeaula2.service.ProdutoService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/produto")
@@ -27,6 +26,12 @@ public class ProdutoController {
             @RequestBody ProdutoDto produtoDto
     ){
         Produto produto = produtoService.salvaProduto(produtoDto);
+        return ResponseEntity.ok(produto);
+    }
+
+    @GetMapping
+    public ResponseEntity retornaTodosProdutos(){
+        List<Produto> produto = produtoService.buscaTodosProdutos();
         return ResponseEntity.ok(produto);
     }
 }
