@@ -17,7 +17,7 @@ public class Calculadora {
         double delta = (Math.pow(valor2,2)) + (-4*(valor1*valor3));
 
         double resultado = (double) ((valor2*(-1)) + Math.sqrt(delta)) / (2*valor1);
-
+//dfasdfasda
         // Math.sqrt(valor1); // raiz quadrada
         // Math.pow(valor1, 2); // potência
 
