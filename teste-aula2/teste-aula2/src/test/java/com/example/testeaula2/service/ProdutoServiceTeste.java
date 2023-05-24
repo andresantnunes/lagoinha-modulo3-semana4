@@ -10,6 +10,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -48,5 +50,18 @@ class ProdutoServiceTeste {
 
     @Test
     void buscaTodosProdutos() {
+        List<Produto> produtosMock =
+                List.of(
+                        new Produto(1L,"Bloco de Notas", 5.0, 10000, LocalDate.now()),
+                        new Produto(2L,"Bloco de Notas 2", 5.0, 10000, LocalDate.now())
+                );
+
+        when(produtoRepository.findAll()).thenReturn(produtosMock);
+
+        List<Produto> produtoResposta = produtoService.buscaTodosProdutos();
+
+        assertNotNull(produtoResposta);
+        assertEquals(produtosMock.get(0).getNomeProduto(), produtoResposta.get(0).getNomeProduto());
+        verify(produtoRepository).findAll();
     }
 }
