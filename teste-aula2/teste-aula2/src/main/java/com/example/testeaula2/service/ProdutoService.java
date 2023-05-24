@@ -19,6 +19,12 @@ public class ProdutoService {
     }
 
     public Produto salvaProduto(ProdutoDto produtoDto){
+        // produtoDto
+        // Produto - Sorvete Dass
+        // Valor -  5.0
+        // Validade - 10000
+        // Vendedor - Hagen
+
         Produto produto = new Produto(
                 produtoDto.getNomeProduto(),
                 produtoDto.getValorProduto(),
@@ -26,7 +32,15 @@ public class ProdutoService {
                 LocalDate.now()
         );
 
+        // Vendedor - Hagen
+        System.out.println("Vendedor: " + produtoDto.getNomeVendedor());
+
         return produtoRepository.save(produto);
+
+        // save(produto) retorna:
+        // id - 1L
+        // nome - Bloco de Notas
+        // ...
     }
 
     public List<Produto> buscaTodosProdutos() {
