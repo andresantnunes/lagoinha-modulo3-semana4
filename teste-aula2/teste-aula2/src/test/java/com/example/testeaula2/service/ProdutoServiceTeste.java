@@ -35,7 +35,7 @@ class ProdutoServiceTeste {
 
         //Realizamos o teste chamando o service
         Produto produtoResposta = produtoService.salvaProduto(
-                new ProdutoDto("Sorvete Dass", 5.0, 10000,"Hagen")
+                new ProdutoDto("Bloco de Notas", 5.0, 10000, "Hagen")
         );
 
         assertNotNull(produtoResposta); // Validamos se a resposta do teste não é nula
