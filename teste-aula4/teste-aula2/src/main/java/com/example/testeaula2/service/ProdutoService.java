@@ -46,4 +46,25 @@ public class ProdutoService {
     public List<Produto> buscaTodosProdutos() {
         return produtoRepository.findAll();
     }
+
+    public Produto atualizaProduto(Long id, ProdutoDto produtoDto) {
+        Produto produto = produtoRepository.findById(id).orElseThrow();
+        produto.setNomeProduto(
+                // se o "produtoDto" não tiver nomeProduto, então iremos manter o nome de "produto",
+                // caso o contrário (produtoDto tem nomeProduto) então iremos salvar o nomeProduto do produtoDto
+                produtoDto.getNomeProduto() == null ? produto.getNomeProduto() : produtoDto.getNomeProduto()
+        );
+        produto.setValorProduto(
+                produtoDto.getValorProduto() == null ? produto.getValorProduto() : produtoDto.getValorProduto()
+        );
+        produto.setValidadeDias(
+                produtoDto.getValidadeDias() == null ? produto.getValidadeDias() : produtoDto.getValidadeDias()
+        );
+        return produtoRepository.save(produto);
+    }
+
+    public Boolean deletaProduto(Long id) {
+        produtoRepository.deleteById(id);
+        return true;
+    }
 }

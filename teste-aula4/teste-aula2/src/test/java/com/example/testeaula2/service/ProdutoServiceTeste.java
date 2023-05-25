@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class) // adiciona ao comando e anotações do mockito ao teste
@@ -50,6 +52,7 @@ class ProdutoServiceTeste {
 
     @Test
     void buscaTodosProdutos() {
+        // GIVEN
         List<Produto> produtosMock =
                 List.of(
                         new Produto(1L,"Bloco de Notas", 5.0, 10000, LocalDate.now()),
@@ -58,10 +61,62 @@ class ProdutoServiceTeste {
 
         when(produtoRepository.findAll()).thenReturn(produtosMock);
 
+        // WHEN
         List<Produto> produtoResposta = produtoService.buscaTodosProdutos();
 
+        //THEN
         assertNotNull(produtoResposta);
         assertEquals(produtosMock.get(0).getNomeProduto(), produtoResposta.get(0).getNomeProduto());
         verify(produtoRepository).findAll();
+//        verify(produtoRepository,times(2)).findAll();
+    }
+
+    @Test
+    void buscaTodosProdutosBDD() {
+        // GIVEN
+        List<Produto> produtosMock =
+                List.of(
+                        new Produto(1L,"Bloco de Notas", 5.0, 10000, LocalDate.now()),
+                        new Produto(2L,"Bloco de Notas 2", 5.0, 10000, LocalDate.now())
+                );
+        given(produtoRepository.findAll()).willReturn(produtosMock);
+
+        // WHEN
+        List<Produto> produtoResposta = produtoService.buscaTodosProdutos();
+
+        //THEN
+        assertNotNull(produtoResposta);
+        assertEquals(produtosMock.get(0).getNomeProduto(), produtoResposta.get(0).getNomeProduto());
+
+        // então o "produtoRepository.findAll()" deve ser chamado 2 vezes
+        then(produtoRepository).should()
+                .findAll();
+    }
+
+
+
+    @Test
+    void atualizaProduto() {
+        Produto produtoMock =
+                new Produto(1L, "Papel Higienico", 10.0,100,LocalDate.now());
+
+        when(produtoRepository.findById(anyLong())).thenReturn(Optional.of(produtoMock));
+        when(produtoRepository.save(any())).thenReturn(produtoMock);
+
+        Produto produtoResposta = produtoService.atualizaProduto(1L,
+                new ProdutoDto("Papel Higienico", 10.0,100,"Ms Limpeza"));
+
+        assertNotNull(produtoResposta);
+        assertEquals(produtoMock.getNomeProduto(), produtoResposta.getNomeProduto());
+        verify(produtoRepository).findById(anyLong());
+        verify(produtoRepository).save(any());
+    }
+
+    @Test
+    void deletaProduto() {
+        Boolean produtoResposta = produtoService.deletaProduto(1L);
+
+        assertNotNull(produtoResposta);
+        assertTrue(produtoResposta);
     }
 }

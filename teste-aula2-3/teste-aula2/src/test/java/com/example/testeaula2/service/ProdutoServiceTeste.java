@@ -79,7 +79,6 @@ class ProdutoServiceTeste {
                         new Produto(1L,"Bloco de Notas", 5.0, 10000, LocalDate.now()),
                         new Produto(2L,"Bloco de Notas 2", 5.0, 10000, LocalDate.now())
                 );
-
         given(produtoRepository.findAll()).willReturn(produtosMock);
 
         // WHEN

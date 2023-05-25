@@ -34,4 +34,21 @@ public class ProdutoController {
         List<Produto> produto = produtoService.buscaTodosProdutos();
         return ResponseEntity.ok(produto);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity atualizaProduto(
+            @PathVariable("id") Long id,
+            @RequestBody ProdutoDto produtoDto
+    ){
+        Produto produto = produtoService.atualizaProduto(id,produtoDto);
+        return ResponseEntity.ok(produto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deletarProduto(
+            @PathVariable("id") Long id
+    ){
+        Boolean produto = produtoService.deletaProduto(id);
+        return ResponseEntity.ok(produto);
+    }
 }
