@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class ProdutoService {
+public class ProdutoService implements ProdutoServiceI {
 
     private final ProdutoRespository produtoRepository;
 

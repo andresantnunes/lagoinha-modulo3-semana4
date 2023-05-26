@@ -2,6 +2,7 @@ package com.example.testeaula2;
 
 import com.example.testeaula2.model.Produto;
 import com.example.testeaula2.repository.ProdutoRespository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,11 @@ public class RepositoryTest {
 
     @Autowired
     ProdutoRespository produtoRespository; // injeção do Produto Repository
+
+    @BeforeEach
+    void limpar(){
+        produtoRespository.deleteAll();
+    }
 
     @Test
     void testeRepository(){
